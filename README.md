@@ -448,9 +448,5 @@ Le module **TP - Boîte à Idées** est une application complète et robuste qui
 
 Le module est prêt pour une utilisation en production et peut servir de base pour des extensions futures.
 
----
 
-**Version du Rapport** : 2.0  
-**Date** : Décembre 2025  
-**Auteur** : Documentation Professionnelle
 
