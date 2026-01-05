@@ -1,0 +1,20 @@
+{
+    "name": "TP - Boîte à Idées",
+    "version": "2.0",
+    "summary": "Module pédagogique pour proposer et suivre des idées",
+    "category": "Training",
+    "author": "EMSI",
+    "license": "LGPL-3",
+    "depends": ["base", "mail"],
+    "data": [
+        "security/security_groups.xml",
+        "security/ir.model.access.csv",
+        "security/ir_rule.xml",
+        "views/idees_views.xml",
+        "views/categorie_views.xml",
+        "views/comment_views.xml",
+        "views/historique_views.xml",
+    ],
+    "installable": True,
+    "application": True,
+}

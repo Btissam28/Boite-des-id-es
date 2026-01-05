@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Action -->
+    <record id="action_tp_idee" model="ir.actions.act_window">
+        <field name="name">Boîte à Idées</field>
+        <field name="res_model">tp.idee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action pour les commentaires -->
+    <record id="action_tp_idee_comment" model="ir.actions.act_window">
+        <field name="name">Commentaires</field>
+        <field name="res_model">tp.idee.comment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('idee_id', '=', active_id)]</field>
+        <field name="context">{'default_idee_id': active_id}</field>
+    </record>
+
+    <!-- Menu principal -->
+    <menuitem id="menu_tp_idee_root" name="Boîte à Idées" sequence="10"/>
+
+    <!-- Sous-menu -->
+    <menuitem id="menu_tp_idees"
+              name="Gestion des Idées"
+              parent="menu_tp_idee_root"
+              action="action_tp_idee"
+              sequence="10"/>
+
+    <!-- Vue liste -->
+    <record id="view_tp_idee_tree" model="ir.ui.view">
+        <field name="name">tp.idee.tree</field>
+        <field name="model">tp.idee</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="statut == 'en_cours'" 
+                  decoration-success="statut == 'acceptee'" 
+                  decoration-danger="statut == 'refusee'"
+                  decoration-muted="statut == 'brouillon'">
+                <field name="name"/>
+                <field name="categorie_id"/>
+                <field name="priorite" widget="badge" 
+                       decoration-success="priorite == 'low'"
+                       decoration-info="priorite == 'medium'"
+                       decoration-warning="priorite == 'high'"
+                       decoration-danger="priorite == 'urgent'"/>
+                <field name="propose_par"/>
+                <field name="responsable_id"/>
+                <field name="date_soumission"/>
+                <field name="vote_count"/>
+                <field name="note_moyenne" widget="float"/>
+                <field name="statut" widget="badge" 
+                       decoration-info="statut == 'en_cours'"
+                       decoration-success="statut == 'acceptee'"
+                       decoration-danger="statut == 'refusee'"
+                       decoration-muted="statut == 'brouillon'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue formulaire -->
+    <record id="view_tp_idee_form" model="ir.ui.view">
+        <field name="name">tp.idee.form</field>
+        <field name="model">tp.idee</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_soumettre" 
+                            type="object" 
+                            string="Soumettre" 
+                            class="oe_highlight"
+                            invisible="statut != 'brouillon'"/>
+                    <button name="action_approuver" 
+                            type="object" 
+                            string="Approuver" 
+                            class="oe_highlight"
+                            invisible="statut != 'en_cours'"
+                            groups="tp_boite_idees.group_tp_idee_manager"/>
+                    <button name="action_rejeter" 
+                            type="object" 
+                            string="Rejeter" 
+                            class="btn-danger"
+                            invisible="statut in ['acceptee', 'refusee']"
+                            groups="tp_boite_idees.group_tp_idee_manager"/>
+                    <field name="statut" widget="statusbar" statusbar_visible="brouillon,en_cours,acceptee"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="categorie_id"/>
+                            <field name="priorite" widget="radio" options="{'horizontal': true}"/>
+                            <field name="propose_par"/>
+                            <field name="responsable_id"/>
+                            <field name="date_soumission"/>
+                        </group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="vote_count" readonly="1"/>
+                            <field name="note_moyenne" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" placeholder="Description détaillée de l'idée..."/>
+                        </page>
+                        <page string="Commentaires">
+                            <field name="comment_ids" nolabel="1">
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date_commentaire"/>
+                                    <field name="note"/>
+                                    <field name="commentaire"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="idee_id" invisible="1"/>
+                                            <field name="user_id"/>
+                                            <field name="date_commentaire"/>
+                                            <field name="note"/>
+                                        </group>
+                                        <group>
+                                            <field name="commentaire" placeholder="Ajouter un commentaire..."/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Historique">
+                            <field name="historique_ids" nolabel="1">
+                                <tree>
+                                    <field name="date_changement"/>
+                                    <field name="user_id"/>
+                                    <field name="ancien_statut"/>
+                                    <field name="nouveau_statut"/>
+                                    <field name="commentaire"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

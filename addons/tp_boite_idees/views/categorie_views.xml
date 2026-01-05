@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Action -->
+    <record id="action_tp_idee_categorie" model="ir.actions.act_window">
+        <field name="name">Catégories d'Idées</field>
+        <field name="res_model">tp.idee.categorie</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_tp_idee_categories"
+              name="Catégories"
+              parent="menu_tp_idee_root"
+              action="action_tp_idee_categorie"
+              sequence="20"
+              groups="tp_boite_idees.group_tp_idee_manager"/>
+
+    <!-- Vue liste -->
+    <record id="view_tp_idee_categorie_tree" model="ir.ui.view">
+        <field name="name">tp.idee.categorie.tree</field>
+        <field name="model">tp.idee.categorie</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue formulaire -->
+    <record id="view_tp_idee_categorie_form" model="ir.ui.view">
+        <field name="name">tp.idee.categorie.form</field>
+        <field name="model">tp.idee.categorie</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Description de la catégorie..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

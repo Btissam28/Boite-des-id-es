@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vue liste des commentaires -->
+    <record id="view_tp_idee_comment_tree" model="ir.ui.view">
+        <field name="name">tp.idee.comment.tree</field>
+        <field name="model">tp.idee.comment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="idee_id"/>
+                <field name="user_id"/>
+                <field name="date_commentaire"/>
+                <field name="note"/>
+                <field name="commentaire"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue formulaire des commentaires -->
+    <record id="view_tp_idee_comment_form" model="ir.ui.view">
+        <field name="name">tp.idee.comment.form</field>
+        <field name="model">tp.idee.comment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="idee_id"/>
+                            <field name="user_id"/>
+                            <field name="date_commentaire"/>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="commentaire" placeholder="Votre commentaire..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+

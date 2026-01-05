@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tp_idee_user,tp.idee (User),model_tp_idee,group_tp_idee_user,1,1,1,0
+access_tp_idee_manager,tp.idee (Manager),model_tp_idee,group_tp_idee_manager,1,1,1,0
+access_tp_idee_admin,tp.idee (Admin),model_tp_idee,group_tp_idee_admin,1,1,1,1
+access_tp_idee_categorie_user,tp.idee.categorie (User),model_tp_idee_categorie,group_tp_idee_user,1,0,0,0
+access_tp_idee_categorie_manager,tp.idee.categorie (Manager),model_tp_idee_categorie,group_tp_idee_manager,1,1,1,0
+access_tp_idee_categorie_admin,tp.idee.categorie (Admin),model_tp_idee_categorie,group_tp_idee_admin,1,1,1,1
+access_tp_idee_comment_user,tp.idee.comment (User),model_tp_idee_comment,group_tp_idee_user,1,1,1,0
+access_tp_idee_comment_manager,tp.idee.comment (Manager),model_tp_idee_comment,group_tp_idee_manager,1,1,1,1
+access_tp_idee_comment_admin,tp.idee.comment (Admin),model_tp_idee_comment,group_tp_idee_admin,1,1,1,1
+access_tp_idee_historique_user,tp.idee.historique (User),model_tp_idee_historique,group_tp_idee_user,1,0,0,0
+access_tp_idee_historique_manager,tp.idee.historique (Manager),model_tp_idee_historique,group_tp_idee_manager,1,0,0,0
+access_tp_idee_historique_admin,tp.idee.historique (Admin),model_tp_idee_historique,group_tp_idee_admin,1,0,0,0

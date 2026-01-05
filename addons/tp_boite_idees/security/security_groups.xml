@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Catégorie de sécurité -->
+        <record id="module_category_tp_boite_idees" model="ir.module.category">
+            <field name="name">Boîte à Idées</field>
+            <field name="description">Gestion des idées et suggestions</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Groupe Employé -->
+        <record id="group_tp_idee_user" model="res.groups">
+            <field name="name">Employé - Boîte à Idées</field>
+            <field name="category_id" ref="module_category_tp_boite_idees"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Peut créer ses propres idées, commenter et voter. Ne peut pas approuver/rejeter.</field>
+        </record>
+
+        <!-- Groupe Responsable -->
+        <record id="group_tp_idee_manager" model="res.groups">
+            <field name="name">Responsable - Boîte à Idées</field>
+            <field name="category_id" ref="module_category_tp_boite_idees"/>
+            <field name="implied_ids" eval="[(4, ref('group_tp_idee_user'))]"/>
+            <field name="comment">Peut approuver/rejeter les idées, assigner des responsables. Ne peut pas supprimer.</field>
+        </record>
+
+        <!-- Groupe Administrateur -->
+        <record id="group_tp_idee_admin" model="res.groups">
+            <field name="name">Administrateur - Boîte à Idées</field>
+            <field name="category_id" ref="module_category_tp_boite_idees"/>
+            <field name="implied_ids" eval="[(4, ref('group_tp_idee_manager'))]"/>
+            <field name="comment">Accès complet : peut gérer les catégories, supprimer des idées, configurer le système.</field>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Règle : Les employés peuvent voir toutes les idées mais modifier seulement les leurs -->
+        <record id="tp_idee_user_write_rule" model="ir.rule">
+            <field name="name">Idée: Les employés peuvent modifier uniquement leurs propres idées</field>
+            <field name="model_id" ref="model_tp_idee"/>
+            <field name="domain_force">[
+                '|',
+                ('propose_par', '=', user.name),
+                ('propose_par', '=', False)
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_user'))]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Règle : Les responsables peuvent voir toutes les idées -->
+        <record id="tp_idee_manager_rule" model="ir.rule">
+            <field name="name">Idée: Les responsables peuvent voir toutes les idées</field>
+            <field name="model_id" ref="model_tp_idee"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Règle : Les admins peuvent tout faire -->
+        <record id="tp_idee_admin_rule" model="ir.rule">
+            <field name="name">Idée: Les admins ont accès complet</field>
+            <field name="model_id" ref="model_tp_idee"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Règle : Les employés peuvent lire tous les commentaires -->
+        <record id="tp_idee_comment_user_read_rule" model="ir.rule">
+            <field name="name">Commentaire: Les employés peuvent lire tous les commentaires</field>
+            <field name="model_id" ref="model_tp_idee_comment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Règle : Les employés peuvent créer des commentaires (la contrainte Python empêche de commenter ses propres idées) -->
+        <record id="tp_idee_comment_user_create_rule" model="ir.rule">
+            <field name="name">Commentaire: Les employés peuvent créer des commentaires</field>
+            <field name="model_id" ref="model_tp_idee_comment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_user'))]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Règle : Les employés peuvent modifier uniquement leurs propres commentaires -->
+        <record id="tp_idee_comment_user_write_rule" model="ir.rule">
+            <field name="name">Commentaire: Les employés peuvent modifier uniquement leurs propres commentaires</field>
+            <field name="model_id" ref="model_tp_idee_comment"/>
+            <field name="domain_force">[
+                '|',
+                ('user_id', '=', user.id),
+                ('user_id', '=', False)
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_tp_idee_user'))]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

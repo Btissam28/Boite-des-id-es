@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vue liste de l'historique -->
+    <record id="view_tp_idee_historique_tree" model="ir.ui.view">
+        <field name="name">tp.idee.historique.tree</field>
+        <field name="model">tp.idee.historique</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="idee_id"/>
+                <field name="date_changement"/>
+                <field name="user_id"/>
+                <field name="ancien_statut"/>
+                <field name="nouveau_statut"/>
+                <field name="commentaire"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+
+
+
